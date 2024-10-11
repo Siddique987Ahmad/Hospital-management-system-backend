@@ -24,7 +24,7 @@ about:{
 },
 role:{
     type:Number,
-    required:true
+    //required:true
 },
 details:{
     type:Object,
