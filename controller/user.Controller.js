@@ -10,7 +10,7 @@ const registerUser = asyncHandler(async (req, res) => {
     throw new Error("Fields required");
   }
   const emailExisted = await User.findOne({ email });
-  console.log(emailExisted);
+  //console.log(emailExisted);
   if (emailExisted) {
     res.status(401);
     throw new Error("Email already existed");
@@ -187,6 +187,61 @@ const updateUser=asyncHandler(async(req,res)=>{
     throw new Error("user not found");
 }
 })
+//get users
+//private/admin
+const getAllUsers=asyncHandler(async(req,res)=>{
+const user=await User.find({})
+res.json(user,"All users")
+})
+
+const registerUsers=asyncHandler(async(req,res)=>{
+const {name,email,password,confirmPassword,role}=req.body
+// if(!name || !email || !password || !role)
+// {
+//   res.status(404)
+//   throw new Error("Fields required");
+  
+// }
+const userExist=await User.findOne({email})
+if(userExist)
+{
+  res.status(400)
+  throw new Error("user already exist");
+  
+}
+if (password !== confirmPassword) {
+  throw new Error("password and confirm password not match");
+  
+}
+const userRole = role !== undefined ? role : 1;
+
+const user=await User.create({
+  name,
+  email,
+  password,
+  role:userRole
+})
+if(user)
+{
+  res.status(200).json({
+    id:user.id,
+    name:user.name,
+    email:user.email,
+    role:user.role,
+    token:generateToken(user.id),
+  })
+}
+else
+{
+  res.status(400)
+  throw new Error("user not register");
+  
+}
+
+})
+
+
+
 
 module.exports = {
   registerUser,
@@ -195,6 +250,8 @@ module.exports = {
   updateUserProfile,
   deleteUser,
   getUserById,
-  updateUser
+  updateUser,
+  getAllUsers,
+  registerUsers
 
 };

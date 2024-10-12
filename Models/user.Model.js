@@ -20,7 +20,7 @@ password:{
 },
 about:{
     type:String,
-    required:true
+    //required:true
 },
 role:{
     type:Number,
