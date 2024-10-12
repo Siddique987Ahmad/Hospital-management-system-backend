@@ -142,16 +142,29 @@ const deleteUser = asyncHandler(async (req, res) => {
   res.status(200).json(deletedUser);
 });
 //nothing
-const getUserById=asyncHandler(async(req,res)=>{
-const user=await User.findById(req.params.id).select("-password")
-if(!user)
-{
-    res.status(404)
-    throw new Error("user not found");
+// const UserById=asyncHandler(async(req,res)=>{
+// const user=await User.findById(req.params.id).select("-password")
+// if(!user)
+// {
+//     res.status(404)
+//     throw new Error("user not found");
     
-}
-res.status(200).json("Here is user:",user)
-})
+// }
+// res.status(200).json("Here is user:",user)
+// })
+const UserById = asyncHandler(async (req, res, next, id) => {
+  console.log(`Fetching user with ID: ${id}`); // Log the ID being fetched
+  const user = await User.findById(id).select("-password");
+  if (!user) {
+    console.log("User not found"); // Log if user is not found
+      res.status(404);
+      throw new Error("User not found");
+  }
+  req.user = user;  // Attach the user to the request object
+  console.log("User found:", user); // Log the found user
+  next();  // Pass control to the next middleware (the route handler)
+});
+
 //update user
 //private/admin
 const updateUser=asyncHandler(async(req,res)=>{
@@ -249,7 +262,7 @@ module.exports = {
   getUserProfile,
   updateUserProfile,
   deleteUser,
-  getUserById,
+  UserById,
   updateUser,
   getAllUsers,
   registerUsers
