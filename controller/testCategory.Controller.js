@@ -1,4 +1,4 @@
-const testCategory=require('../Models/testCategory.Model')
+const TestCategory=require('../Models/testCategory.Model')
 const asyncHandler=require('express-async-handler')
 //post create test
 //private /admin
@@ -12,7 +12,7 @@ const createTestCategory=asyncHandler(async(req,res)=>{
         
     }
 
-    const createdTest=await testCategory.create({
+    const createdTest=await TestCategory.create({
         testName,
         minValue,
         maxValue,
@@ -59,7 +59,7 @@ res.status(200).json(createdTest)
 const testCategoryById = asyncHandler(async (req, res, next, id) => {
     console.log(`Fetching category with ID: ${id}`);  // Debug log
     try {
-        const category = await testCategory.findById(id);
+        const category = await TestCategory.findById(id);
         if (!category) {
             return res.status(400).json({
                 error: 'Test Category does not exist',
@@ -77,7 +77,7 @@ const testCategoryById = asyncHandler(async (req, res, next, id) => {
 
 const updateTestCategory=asyncHandler(async(req,res)=>{
     const {id}=req.params
-    const updateCategory=await testCategory.findByIdAndUpdate(id,req.body,{new:true})
+    const updateCategory=await TestCategory.findByIdAndUpdate(id,req.body,{new:true})
     if(!updateCategory)
     {
         res.status(400)
@@ -89,7 +89,7 @@ const updateTestCategory=asyncHandler(async(req,res)=>{
 })
 const deleteTestCategory=asyncHandler(async(req,res)=>{
     const {id}=req.params
-    const deletedTestCategory=await testCategory.findByIdAndDelete(id)
+    const deletedTestCategory=await TestCategory.findByIdAndDelete(id)
     if(!deletedTestCategory)
     {
         res.status(400)
@@ -99,7 +99,7 @@ const deleteTestCategory=asyncHandler(async(req,res)=>{
     res.status(200).json(deletedTestCategory)
 })
 const listOfTestCategory=asyncHandler(async(req,res)=>{
-    const list=await testCategory.find()
+    const list=await TestCategory.find()
     res.status(200).json(list)
 })
 module.exports={

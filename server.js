@@ -13,6 +13,7 @@ const port=process.env.PORT || 5000
 //import Routes
 const userRoute=require('./routes/user.Route.js')
 const testCategoryRoute=require('./routes/testCategory.Route.js')
+const testResultRoute=require('./routes/testResult.Route.js')
 //middleware
 app.use(express.json())
 app.use(cors())
@@ -24,6 +25,7 @@ app.use((err, req, res, next) => {
 //Routes middleware
 app.use('/api',userRoute)
 app.use('/api',testCategoryRoute)
+app.use('/api',testResultRoute)
 app.listen(port,()=>{
     console.log(`Server is running on ${port}`)
 })
