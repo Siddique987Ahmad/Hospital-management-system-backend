@@ -1,11 +1,17 @@
 const express=require('express')
 const router=express.Router()
-const {testById,createTest}=require('../controller/testResult.Controller.js')
+const {testById,createTest, getTestDetail, getUserTestDetail, updateTestResult, deleteTestResult, getTestResultList, getTestResultPaidValues}=require('../controller/testResult.Controller.js')
 const {UserById}=require('../controller/user.Controller')
 const { protect, admin } = require('../middleware/authMiddleware.js')
 
 
 router.post('/createtest/:userid',protect,admin,createTest)
+router.get('/gettestdetail/:testId/:userid',protect,admin,getTestDetail)
+router.get('/getusertestdetail/:testId/:userid',protect,admin,getUserTestDetail)
+router.put('/updatetestresult/:testId',protect,admin,updateTestResult)
+router.delete('/deletetestresult/:testId',protect,admin,deleteTestResult)
+router.get('/gettestresultlist/:userid',protect,admin,getTestResultList)
+router.get('/gettestresultpaidvalues/:userid',protect,admin,getTestResultPaidValues)
 router.get('/testresult/:testId',(req,res)=>{
     res.json(req.result)
 })
