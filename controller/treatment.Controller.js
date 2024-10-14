@@ -97,14 +97,24 @@ const deleteTreatment = asyncHandler(async (req, res) => {
 //get private admin
 const getTreatmentList=asyncHandler(async(req,res)=>{
     const {userid}=req.params
+    console.log("User ID:", userid); // Log the received user ID
+    // Check if user exists
+    const userExists = await User.findById(userid);
+    console.log("user exist:",userExists)
+    if (!userExists) {
+        res.status(404);
+        throw new Error("User not found");
+    }
     const treatment=await Treatment.find({user:userid})
     .populate('user','name email')
-    // if(!treatment || treatment.length===0)
-    // {
-    //     res.status(404)
-    //     throw new Error("list not found");
+    console.log("treatment data:",treatment)
+    if(!treatment || treatment.length===0)
+    {
+      console.log("No treatments found for user:", userid);
+        res.status(404)
+        throw new Error("list not found");
         
-    // }
+    }
     res.status(200).json(treatment)
 })
 
