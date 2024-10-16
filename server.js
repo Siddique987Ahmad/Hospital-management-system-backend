@@ -1,6 +1,8 @@
 const express=require("express")
 const dotenv=require('dotenv').config()
 const cors=require('cors')
+const path=require('path')
+const fs=require('fs')
 const dbConnection=require('./db/dbConnection')
 
 const app=express()
@@ -17,6 +19,14 @@ const testResultRoute=require('./routes/testResult.Route.js')
 const treatmentRoute=require('./routes/treatment.Route.js')
 const prescriptionRoute=require('./routes/prescription.Route.js')
 const patientDetailRoute=require('./routes/patientDetail.Route.js')
+const uploadRoute=require('./routes/upload.Route.js')
+const buildingRoute=require('./routes/building.Route.js')
+const floorRoute=require('./routes/floor.Route.js')
+const departmentRoute=require('./routes/department.Route.js')
+const specializationRoute=require('./routes/specialization.Route.js')
+const designationRoute=require('./routes/designation.Route.js')
+const doctorDetailRoute=require('./routes/doctordetail.Route.js')
+
 //middleware
 app.use(express.json())
 app.use(cors())
@@ -32,6 +42,22 @@ app.use('/api',testResultRoute)
 app.use('/api',treatmentRoute)
 app.use('/api',prescriptionRoute)
 app.use('/api',patientDetailRoute)
+app.use('/upload',uploadRoute)
+app.use('/api',buildingRoute)
+app.use('/api',floorRoute)
+app.use('/api',departmentRoute)
+app.use('/api',specializationRoute)
+app.use('/api',designationRoute)
+app.use('/api',doctorDetailRoute)
+
+//upload
+const uploadDir = path.join(__dirname, 'uploads');
+
+// Check if the "uploads" directory exists, if not, create it
+if (!fs.existsSync(uploadDir)) {
+    fs.mkdirSync(uploadDir);
+    //console.log('Uploads folder created!');
+}
 app.listen(port,()=>{
     console.log(`Server is running on ${port}`)
 })
