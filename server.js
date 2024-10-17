@@ -26,7 +26,13 @@ const departmentRoute=require('./routes/department.Route.js')
 const specializationRoute=require('./routes/specialization.Route.js')
 const designationRoute=require('./routes/designation.Route.js')
 const doctorDetailRoute=require('./routes/doctordetail.Route.js')
-
+const vendorRoute=require('./routes/vendor.Route.js')
+const expenseRoute=require('./routes/expense.Route.js')
+const medicineRoute=require('./routes/medicine.Route.js')
+const vaccineRoute=require('./routes/vaccine.Route')
+const vaccineAppointmentRoute=require('./routes/vaccineAppointment.Route.js')
+const consultCategoryRoute=require('./routes/consultCategory.Route')
+const consultationRoute=require('./routes/consultation.Route.js')
 //middleware
 app.use(express.json())
 app.use(cors())
@@ -49,7 +55,13 @@ app.use('/api',departmentRoute)
 app.use('/api',specializationRoute)
 app.use('/api',designationRoute)
 app.use('/api',doctorDetailRoute)
-
+app.use('/api',vendorRoute)
+app.use('/api',expenseRoute)
+app.use('/api',medicineRoute)
+app.use('/api',vaccineRoute)
+app.use('/api',vaccineAppointmentRoute)
+app.use('/api',consultCategoryRoute)
+app.use('/api',consultationRoute)
 //upload
 const uploadDir = path.join(__dirname, 'uploads');
 
