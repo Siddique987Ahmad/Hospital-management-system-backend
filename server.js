@@ -33,6 +33,7 @@ const vaccineRoute=require('./routes/vaccine.Route')
 const vaccineAppointmentRoute=require('./routes/vaccineAppointment.Route.js')
 const consultCategoryRoute=require('./routes/consultCategory.Route')
 const consultationRoute=require('./routes/consultation.Route.js')
+const uploadExcelRoute=require('./routes/uploadexcel.Route.js')
 //middleware
 app.use(express.json())
 app.use(cors())
@@ -62,6 +63,7 @@ app.use('/api',vaccineRoute)
 app.use('/api',vaccineAppointmentRoute)
 app.use('/api',consultCategoryRoute)
 app.use('/api',consultationRoute)
+app.use('/uploadfile',uploadExcelRoute)
 //upload
 const uploadDir = path.join(__dirname, 'uploads');
 
